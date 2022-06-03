@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EyeMovement</title>
+    <script src="js/p5.min.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js"></script>
+    <style rel="stylesheet" type="text/css">
+        *{
+            box-sizing: border-box;
+        }
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .start-button{
+            width: 60vh;
+            height: 20vh;
+            font-size: xxx-large;
+            border: none;
+            background: crimson;
+            color:white;
+            border-radius:1vh;
+            cursor: pointer;
+            transition: transform 0.02s ease-in-out;
+        }
+        .start-button:active{
+            transform: scale(1.01);
+        }
+        .start-button:hover{
+            background: #a61031;
+
+        }
+        .center{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="center">
+        <button class="start-button">
+            Kezdés
+        </button>
+        <div class="counter">
+
+        </div>
+    </div>
+</body>
+<script>
+    let counter = $(".counter");
+    counter.hide();
+    $(".start-button").on("click",async (event) => {
+        $(".start-button").hide();
+        counter.show();
+        counter.html(2)
+        let c = 1;
+        let int = setInterval(()=>{
+            counter.html(c)
+            if(c === 1){
+                clearInterval(int);
+                $(".center").hide();
+                let myp5 = new p5(s);
+            }
+            c--;
+        },1000)
+    })
+</script>
+</html>
