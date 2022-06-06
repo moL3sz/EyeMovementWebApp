@@ -14,9 +14,9 @@ const s = (sketch) => {
     let hH = window.innerHeight / 2;
     let pIndex = 0;
 
-    let draw2 = () => {
+    let draw2 = async() => {
         sketch.background(255);
-
+        d = await sleep(1000);
         if (pIndex !== patterns.length) {
 
             sketch.fill(255, 0, 0);
@@ -34,10 +34,13 @@ const s = (sketch) => {
             clearTimeout(d);
             return
         }
-        d = setTimeout(draw2, 1000)
+        d = setTimeout(draw2, 2000)
     }
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 const pos2vec = (n) => {
     //decomposite
     return [n % 3, Math.floor(n / 3)]
@@ -64,14 +67,27 @@ let paddings = (P, i, j) => {
     ]
     return k[i][j]
 }
-let patterns = [0, 2, 4, 6, 8]
-    /*
+let patterns = [0, 3, 8, 4, 2, 5, 0, 3, 1, 7, 9, 6];
+/*
 
-        O O O  |  0 1 2
-        O O O  |  3 4 5
-        O O O  |  6 7 8
+    O O O  |  0 1 2
+    O O O  |  3 4 5
+    O O O  |  6 7 8
 
-        screen poses:
-        top left , top center , top right etc...
+    screen poses:
+    top left , top center , top right etc...
 
-     */
+ */
+
+
+const generatePattern = (n) => {
+    const k = []
+    let i = 0;
+    while (k.length != n) {
+        const r = Math.floor(Math.random() * 10);
+        if (!k.slice(k.length - 2, k.length).includes(r)) {
+            k.push(r)
+        }
+    }
+    return k;
+}
